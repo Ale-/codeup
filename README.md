@@ -8,3 +8,9 @@ El objetivo de este taller es entender el concepto de _estructura de datos_ y en
 * E1. ArrayLists
 * E2. LinkedLists
 * E3. HashMaps
+
+## CodeUp (II). Algoritmos y eficiencia
+
+El objetivo de este taller es entender conceptos de eficiencia para poder aplicarlos en nuestros algoritmos. Para los ejercicios se usará el algoritmo de búsqueda del vecino más cercano (NSS) como base a la que ir aplicando sucesivas mejoras. 
+
+* E4. NearestNeightbourSearch_I. Microptimización.
