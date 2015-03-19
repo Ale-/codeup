@@ -13,4 +13,5 @@ El objetivo de este taller es entender el concepto de _estructura de datos_ y en
 
 El objetivo de este taller es entender conceptos de eficiencia para poder aplicarlos en nuestros algoritmos. Para los ejercicios se usará el algoritmo de búsqueda del vecino más cercano (NSS) como base a la que ir aplicando sucesivas mejoras. 
 
-* E4. NearestNeightbourSearch_I. Microptimización.
+* E4. Micro-optimización: LookupTables.
+* E5. Micro-optimización: NearestNeightbourSearch.
