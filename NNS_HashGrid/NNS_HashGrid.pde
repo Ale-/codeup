@@ -23,8 +23,8 @@ Boston, MA 02111-1307 USA
  */
  
  
-int n = 800, w = 900, h = 900; 
-float treshold = 25;
+int n = 1000, w = 900, h = 900; 
+float treshold = 50;
 PVector[] particles;
 
 HashGrid hg;
@@ -32,9 +32,10 @@ HashGrid hg;
 
 void setup()
 {
-    size(900, 900);
+    size(w, h);
     background(#eeeeee);
-    stroke(0, 15);
+    stroke(0);
+    //treshold = sqrt(n);
     
     //Create the particles
     particles = new PVector[n];
@@ -42,15 +43,19 @@ void setup()
       particles[i] = new PVector(random(w), random(h));
       
     //Create the HashGrid  
-    hg = new HashGrid(treshold, g);    
+    hg = new HashGrid(treshold, w, h);    
 }
 
 
 void draw()
 {
+    background(#eeeeee);
+    //hg.displayNearestBuckets(new PVector(mouseX, mouseY)); 
     frame.setTitle( nfc(frameRate, 2) );
     update();  
-    display();
+    //display();
+    display_with_hashgrid();
+    //hg.displayGrid(0x50000000);
 }
 
 
@@ -65,10 +70,21 @@ void update()
 void display()
 {
     for(int i = 0; i < n; i++) {
+        for(int j = i+1; j < n; j++) {
+            if(particles[j].dist(particles[i]) < treshold) 
+                line(particles[j].x, particles[j].y, particles[i].x, particles[i].y);
+        }
+    }  
+}
+
+void display_with_hashgrid()
+{
+    for(int i = 0; i < n; i++) {
         ArrayList<PVector> near_particles = hg.getNearestElements( particles[i] );
-        for(PVector p : near_particles)
-            if(p.dist(particles[i]) < 25) 
+        for(PVector p : near_particles) {
+            if(p.dist(particles[i]) < treshold) 
                 line(p.x, p.y, particles[i].x, particles[i].y);
+        }
     }  
 }
 
@@ -77,5 +93,7 @@ PVector updated(PVector p)
 {
     p.x += random(-5, 5);
     p.y += random(-5, 5); 
+    if(p.x < 0) p.x += w; else if(p.x > w) p.x -= w;
+    if(p.y < 0) p.y += h; else if(p.y > h) p.y -= h;
     return p;
 }

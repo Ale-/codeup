@@ -6,28 +6,27 @@
   into the buckets nearest to the container wherein the element resides.
 */
  
- 
 class HashGrid 
 {  
-    //The map itself
-    ArrayList <PVector> [] buckets;
-    //Bucket and map parameters:
-    // · bW and bH define the bucket dimensions,
-    // · rowB and colB are the number of buckets per row and column
+    ArrayList <PVector>[] buckets;
     int 
       bucket_width, 
       bucket_height, 
       cols, 
       rows;
      
-    HashGrid (float treshold, PGraphics c)
+    /**
+     *  Constructor
+     */ 
+     
+    HashGrid (float treshold, int w, int h)
     {
-      bucket_width  = c.width  / int(treshold);
-      bucket_height = c.height / int(treshold);
-      cols          = c.width  / bucket_width;
-      rows          = c.height / bucket_height;
-      buckets       = new ArrayList [cols * rows] ;
-      resetGrid();
+        bucket_width  = int(treshold); //w / int(treshold);
+        bucket_height = int(treshold); //h / int(treshold);
+        cols          = w / bucket_width;
+        rows          = h / bucket_height;
+        buckets       = new ArrayList [cols * rows] ;
+        resetGrid();
     }
   
   
@@ -38,7 +37,7 @@ class HashGrid
     void resetGrid() 
     {                                  
         for(int i = 0; i < buckets.length; i++)
-            buckets[i] = new ArrayList ();
+            buckets[i] = new ArrayList();
     }
    
    
@@ -48,7 +47,7 @@ class HashGrid
      
     int getCol(PVector location) 
     { 
-        return int(location.x) / bucket_width; 
+        return int(location.x/ bucket_width); 
     }  
   
   
@@ -58,7 +57,7 @@ class HashGrid
      
     int getRow(PVector location) 
     { 
-        return int(location.y) / bucket_height; 
+        return int(location.y/bucket_height); 
     }  
   
   
@@ -92,22 +91,45 @@ class HashGrid
   
     ArrayList <PVector> getNearestElements (PVector l) 
     {   
-        ArrayList
-          nearest = new ArrayList ();      //the container to be returned 
-        int                             
-          t,                               //a variable to hold temporary values
-          c  = getCol (l),                
-          r  = getRow (l),                           // Bucket 'b' and its neighbours 'n':
-          iC = (t = c-1) >0 ? t : 0 ,                   //
-          iR = (t = r-1) >0 ? t : 0 ,                   //    n(iC,iR)    ·    n(eC,iR)
-          eC = (t = c+1) < cols ? t : cols -1 ,           //        ·    b(c,r)     ·               
-          eR = (t = r+1) < rows ? t : rows -1 ;           //    n(iC,eR)    ·    n(eC,eR)  
+        ArrayList nearest = new ArrayList ();
+        int c = getCol(l);
+        int r = getRow(l);        
+
+        //get row and col indices of buckets around the given particle, taking into account corner cases         
+        int init_col = c-1 > 0    ? c-1 : 0;                   
+        int end_col  = c+1 < cols ? c+1 : cols-1;           
+        int init_row = r-1 > 0    ? r-1 : 0;                                   
+        int end_row  = r+1 < rows ? r+1 : rows-1;          
          
         //Retrieve nearest buckets 
-        for (r = iR, t = r*cols; r <= eR; r++, t += cols) 
-            for (c = iC; c <= eC; c++) 
-                nearest.addAll (buckets[t+c]);
+        for (int row = init_row; row <= end_row; row++) 
+            for (int col = init_col; col <= end_col; col++) 
+                nearest.addAll (buckets[(row * cols) + col]);
+    
         return nearest;
+    }
+    
+    void displayNearestBuckets(PVector l)
+    {
+        ArrayList<PVector> nearest = new ArrayList ();
+        int c = getCol(l);
+        int r = getRow(l);        
+
+        //get row and col indices of buckets around the given particle, taking into account corner cases         
+        int init_col = c-1 > 0    ? c-1 : 0;                   
+        int end_col  = c+1 < cols ? c+1 : cols-1;           
+        int init_row = r-1 > 0    ? r-1 : 0;                                   
+        int end_row  = r+1 < rows ? r+1 : rows-1;          
+         
+        //Retrieve nearest buckets 
+        for (int row = init_row; row <= end_row; row++) 
+            for (int col = init_col; col <= end_col; col++) {
+                fill(#ff0000);
+                rect(col * bucket_width, row * bucket_height, bucket_width, bucket_height);
+                nearest.addAll (buckets[(row * cols) + col]);
+            }
+        for(PVector p : nearest)
+            ellipse(p.x, p.y, 20, 20);
     }
     
     
