@@ -15,3 +15,4 @@ El objetivo de este taller es entender conceptos de eficiencia para poder aplica
 
 * E4. Micro-optimización: LookupTables.
 * E5. Micro-optimización: NearestNeightbourSearch.
+* E6. Algoritmos eficientes para resolver un NNS: HashGrids.
