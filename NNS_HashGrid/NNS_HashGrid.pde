@@ -107,8 +107,7 @@ void displayWithHashgrid()
         near_particles = hg.getNearestElements(p);
         for(int j = 0, s = near_particles.size(); j < s; j++) {
             q = near_particles.get(j);
-            float d = p.dist(q); 
-            d = (p.x - q.x)*(p.x -q.x) + (p.y - q.y)*(p.y -q.y);  
+            float d = (p.x - q.x)*(p.x -q.x) + (p.y - q.y)*(p.y -q.y);  
             if(d < sqt && d > 0)  line(p.x, p.y, q.x, q.y);
         }
     }  
