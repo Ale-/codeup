@@ -34,7 +34,7 @@ ArrayList<Map.Entry> tags(String file, String exceptionsFile)
         {
             words_analyzed++;
             //Set case to avoid repeated words
-            word = words[current_word].toLowerCase();
+            word = words[current_word].toUpperCase();
             //Check if word is allowed, else continue to the next element in the iteration
             if(containsString(exceptions, word)) 
                 continue;
@@ -72,6 +72,7 @@ ArrayList<Map.Entry> tags(String file, String exceptionsFile)
     //Return the sorted list
     return tags;     
 }
+
 
 /**
  *  Util method to check if a word is contained in a given String array

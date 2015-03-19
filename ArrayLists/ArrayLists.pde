@@ -23,7 +23,7 @@ Boston, MA 02111-1307 USA
 
 import java.util.*;   // Only needed if using List or LinkedList
 
-ArrayList the_particles;
+List the_particles;
 
 int 
   sparse = 50, 
@@ -37,9 +37,9 @@ void setup()
 {
     size(w, h);  
     background(#eeeeee); 
-    fill(0, 5); 
+    fill(#220000, 5); 
     stroke(-1, 15);
-    the_particles = new ArrayList();  
+    the_particles = new LinkedList();  
 }
 
 void draw()
@@ -47,7 +47,7 @@ void draw()
     frame.setTitle( nfc(frameRate, 2) );
     the_particles.add(new float[] {x, y});
     updateE(the_particles);
-    //filter(DILATE);
+    filter(DILATE);
 }
 
 
@@ -141,7 +141,7 @@ void updateE(List<float []> list)
         coords[0] += random(-sparse, sparse);
         coords[1] += random(-sparse, sparse);
         //Display
-        ellipse(coords[0], coords[1], diam, diam);
+        rect(coords[0], coords[1], diam, diam);
         //Kill
         if(coords[0] < -diam  || coords[0] > w+diam || coords[1] < -diam  || coords[1] > h+diam) { 
           list.remove(i);

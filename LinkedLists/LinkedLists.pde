@@ -38,6 +38,7 @@ void setup()
                     new PVector(0, height) 
                });
     noStroke();
+    subdivide(shapes);
 }
 
 
@@ -62,7 +63,7 @@ void subdivide(LinkedList<PVector[]> the_shapes)
     {
         PVector[] current_shape = the_shapes.poll();
         display(current_shape);  
-        divide(current_shape, the_shapes);
+        divide(current_shape, the_shapes, .5);
     }
 }
 
@@ -70,19 +71,24 @@ void subdivide(LinkedList<PVector[]> the_shapes)
 /**
  *  Subdivides the polygon and offers (joins to the tail) the resulting polygons to the queue
  */
-void divide(PVector[] s, LinkedList<PVector[]> shapes) 
+void divide(PVector[] s, LinkedList<PVector[]> shapes, float prob) 
 {    
-      for(int i = 0, n = s.length; i < n; i++)
+      if(random(1)< prob)
       {
-          int prev = (i - 1 + n) % n;
-          int next = (i + 1)     % n;
-          
-          shapes.offer( new PVector[] { m(s[prev], s[i]), s[i], m(s[i], s[next]) } );           
+          for(int i = 0, n = s.length; i < n; i++)
+          {
+              int prev = (i - 1 + n) % n;
+              int next = (i + 1)     % n;
+              
+              shapes.offer( new PVector[] { m(s[prev], s[i]), s[i], m(s[i], s[next]) } );           
+          }
+          if(s.length == 4)
+              shapes.offer( new PVector[] { m(s[0], s[1]), m(s[1], s[2]), m(s[2], s[3]), m(s[3], s[0])} ); 
+           else
+              shapes.offer( new PVector[] { m(s[0], s[1]), m(s[1], s[2]), m(s[2], s[0]) } );
+      } else {
+         shapes.offer(s); 
       }
-      if(s.length == 4)
-          shapes.offer( new PVector[] { m(s[0], s[1]), m(s[1], s[2]), m(s[2], s[3]), m(s[3], s[0])} ); 
-       else
-          shapes.offer( new PVector[] { m(s[0], s[1]), m(s[1], s[2]), m(s[2], s[0]) } );
 }
 
 

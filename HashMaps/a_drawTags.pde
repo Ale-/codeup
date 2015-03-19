@@ -8,12 +8,13 @@ void display(ArrayList<Map.Entry> tag_cloud)
         padding = 50,
         word_padding = 5,
         x = padding, 
-        y = padding + 200;
+        y = padding + 100;
      float 
         word_width;
-
+     int  altern = 0;
      for(Map.Entry entry : tag_cloud)
      {
+         fill((altern++%2) * 0xff0090FF | 0x111111);
          String tag = (String) entry.getKey();
          textSize( map((Integer) entry.getValue(), 0, max_freq, 5, 200) );
          

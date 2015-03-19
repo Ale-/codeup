@@ -26,11 +26,11 @@ import java.util.*;
 
 void setup()
 {
-    size(1900, 600);
+    size(1000, 1000);
     
-    background(#eeeeee); fill(#111111);
+    background(#eeeeef); fill(#111111);
     
-    display(tags("ihaveadream.txt", "exceptions.txt"));
+    display(tags("meinkampf.txt", "exceptions.txt"));
 }
 
 

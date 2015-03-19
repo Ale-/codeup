@@ -23,8 +23,8 @@ Boston, MA 02111-1307 USA
  */
  
  
-int n = 1000, w = 900, h = 900; 
-float treshold = 50;
+int n = 6000, w = 900, h = 900; 
+float treshold = 20, sqt = treshold * treshold;
 PVector[] particles;
 
 HashGrid hg;
@@ -32,11 +32,10 @@ HashGrid hg;
 
 void setup()
 {
-    size(w, h);
-    background(#eeeeee);
-    stroke(0);
-    //treshold = sqrt(n);
-    
+    size(w, h, P2D);
+    background(-1);
+    stroke(0, 25);
+
     //Create the particles
     particles = new PVector[n];
     for(int i = 0; i < n; i++)  
@@ -49,51 +48,69 @@ void setup()
 
 void draw()
 {
-    background(#eeeeee);
-    //hg.displayNearestBuckets(new PVector(mouseX, mouseY)); 
+    background(-1);
     frame.setTitle( nfc(frameRate, 2) );
     update();  
-    //display();
-    display_with_hashgrid();
-    //hg.displayGrid(0x50000000);
+    displayWithoutHashgrid();
+    //displayWithHashgrid();
 }
 
 
+/**
+ *  Move the particles following a random walker scheme and update the hashgrid with the positions 
+ */
+ 
 void update()
 {
     hg.resetGrid();
-    for(int i = 0; i < n; i++)
-        hg.insert(updated(particles[i]));   
+    PVector p;
+    for(int i = 0; i < n; i++) {
+        p = particles[i];
+        p.x += random(-1, 1);
+        p.y += random(-1, 1); 
+        if(p.x < 0) p.x += w; else if(p.x > w) p.x -= w;
+        if(p.y < 0) p.y += h; else if(p.y > h) p.y -= h;
+        hg.insert(particles[i]);   
+    }
 }
 
 
-void display()
+/**
+ *  Every particle iterates over all the bunch checking distances and drawing lines when near
+ */
+
+void displayWithoutHashgrid()
 {
+    PVector p, q;
     for(int i = 0; i < n; i++) {
+        p = particles[i];
         for(int j = i+1; j < n; j++) {
-            if(particles[j].dist(particles[i]) < treshold) 
+            q = particles[j];
+            float d = (p.x - q.x)*(p.x -q.x) + (p.y - q.y)*(p.y -q.y);   
+            if(d < sqt) 
                 line(particles[j].x, particles[j].y, particles[i].x, particles[i].y);
         }
     }  
 }
 
-void display_with_hashgrid()
+
+/**
+ *  Use a hash-grid to get nearest neighbours of the particles and draw lines connecting them
+ */  
+
+void displayWithHashgrid()
 {
+    ArrayList<PVector> near_particles;
+    PVector p, q;
     for(int i = 0; i < n; i++) {
-        ArrayList<PVector> near_particles = hg.getNearestElements( particles[i] );
-        for(PVector p : near_particles) {
-            if(p.dist(particles[i]) < treshold) 
-                line(p.x, p.y, particles[i].x, particles[i].y);
+        p = particles[i];
+        near_particles = hg.getNearestElements(p);
+        for(int j = 0, s = near_particles.size(); j < s; j++) {
+            q = near_particles.get(j);
+            float d = p.dist(q); 
+            d = (p.x - q.x)*(p.x -q.x) + (p.y - q.y)*(p.y -q.y);  
+            if(d < sqt && d > 0)  line(p.x, p.y, q.x, q.y);
         }
     }  
 }
 
-
-PVector updated(PVector p)
-{
-    p.x += random(-5, 5);
-    p.y += random(-5, 5); 
-    if(p.x < 0) p.x += w; else if(p.x > w) p.x -= w;
-    if(p.y < 0) p.y += h; else if(p.y > h) p.y -= h;
-    return p;
-}
