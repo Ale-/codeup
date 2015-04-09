@@ -44,7 +44,7 @@ void draw()
 {
     frame.setTitle( nfc(frameRate, 2) );
     update();  
-    display_e();      
+    display_a();      
 }
 
 void update()

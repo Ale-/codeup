@@ -51,8 +51,8 @@ void draw()
     background(-1);
     frame.setTitle( nfc(frameRate, 2) );
     update();  
-    displayWithoutHashgrid();
-    //displayWithHashgrid();
+    //displayWithoutHashgrid();
+    displayWithHashgrid();
 }
 
 

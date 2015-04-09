@@ -34,7 +34,7 @@ ArrayList<Map.Entry> tags(String file, String exceptionsFile)
         {
             words_analyzed++;
             //Set case to avoid repeated words
-            word = words[current_word].toUpperCase();
+            word = words[current_word].toLowerCase();
             //Check if word is allowed, else continue to the next element in the iteration
             if(containsString(exceptions, word)) 
                 continue;

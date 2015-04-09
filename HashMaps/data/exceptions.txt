@@ -42,6 +42,7 @@ sus
 tu
 tus
 y
+e
 que
 o
 por
@@ -51,3 +52,7 @@ de
 si
 sí
 no
+un
+una
+unos
+unas

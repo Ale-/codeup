@@ -30,7 +30,7 @@ void setup()
     
     background(#eeeeef); fill(#111111);
     
-    display(tags("meinkampf.txt", "exceptions.txt"));
+    display(tags("partidox", "exceptions.txt"));
 }
 
 

@@ -8,7 +8,7 @@
  
 class HashGrid 
 {  
-    ArrayList <PVector>[] buckets;
+    ArrayList <PVector>[][] buckets;
     int 
       bucket_width, 
       bucket_height, 
@@ -26,59 +26,39 @@ class HashGrid
         bucket_height = int(treshold);
         cols          = w / bucket_width;
         rows          = h / bucket_height;
-        buckets       = new ArrayList [cols * rows] ;
+        buckets       = new ArrayList[cols][rows] ;
         resetGrid();
     }
-  
-  
+    
+    HashGrid (float treshold, int w, int h, int n)
+    {
+        int d = int (treshold) - 1;
+        bucket_width  = int(sqrt(n)); 
+        bucket_height = int(sqrt(n));
+        cols          = w / bucket_width;
+        rows          = h / bucket_height;
+        buckets       = new ArrayList[cols][rows] ;
+        resetGrid();
+    }
+    
     /**
      *  Clear all the buckets of their current information
      */
      
     void resetGrid() 
     {                                  
-        for(int i = 0; i < buckets.length; i++)
-            buckets[i] = new ArrayList<PVector>();
+        for(int x = 0; x < cols; x++)
+            for(int y = 0; y < rows; y++)
+                buckets[x][y] = new ArrayList<PVector>();
     }
-   
-   
-    /**
-     *  Get the column of a given location in the grid
-     */  
-     
-    int getCol(PVector location) 
-    { 
-        return int(location.x / bucket_width); 
-    }  
-  
-  
-    /**
-     *  Get the row of a given location in the grid
-     */  
-     
-    int getRo(PVector location) 
-    { 
-        return int(location.y / bucket_height); 
-    }  
-  
-  
-    /**
-     *  Get the index of the grid bucket that contains a given location
-     */  
-     
-    int getIndex(PVector location) 
-    { 
-        return getCol(location) + (getRo(location) * cols);
-    }
-     
      
     /**
      *  Insert a given location inside its correspondent bucket
      */
      
-    void insert(PVector element) 
+    void insert(PVector p) 
     {                      
-        buckets[getIndex(element)].add(element);    
+        buckets[int(p.x / bucket_width)][int(p.y / bucket_height)].add(p);    
     }
      
      
@@ -89,21 +69,19 @@ class HashGrid
     ArrayList <PVector> getNearestElements (PVector l) 
     {   
         ArrayList nearest = new ArrayList ();
-        int c = getCol(l);
-        int r = getRo(l);        
+        int c = int(l.x / bucket_width),
+            r = int(l.y / bucket_width);        
 
         //get row and col indices of buckets around the given particle, taking into account corner cases         
-        int init_col = c-1 > 0    ? c-1 : 0;                   
-        int end_col  = c+1 < cols ? c+1 : cols-1;           
-        int init_row = r-1 > 0    ? r-1 : 0;                                   
-        int end_row  = r+1 < rows ? r+1 : rows-1;          
+        int ini_col = c-1 > 0    ? c-1 : 0,                   
+            end_col = c+1 < cols ? c+1 : cols-1,           
+            ini_row = r-1 > 0    ? r-1 : 0,                              
+            end_row = r+1 < rows ? r+1 : rows-1;          
          
         //Retrieve nearest buckets 
-        for (int row = init_row; row <= end_row; row++) {
-            for (int col = init_col; col <= end_col; col++) {
-                nearest.addAll(buckets[(row * cols) + col]);
-            }
-        }
+        for (int row = ini_row; row <= end_row; row++) 
+            for (int col = ini_col; col <= end_col; col++) 
+                nearest.addAll(buckets[col][row]);
     
         return nearest;
     }
