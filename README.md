@@ -22,4 +22,4 @@ El objetivo de este taller es entender conceptos de eficiencia para poder aplica
 El objetivo de este taller es entender los fundamentos de los patrones de diseño para aprender a programar código que sea fácil de extender, comprender, reutilizar y mantener. 
 
 * E7. Command
-
+* E8. Visitor
