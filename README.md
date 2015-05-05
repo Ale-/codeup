@@ -16,3 +16,10 @@ El objetivo de este taller es entender conceptos de eficiencia para poder aplica
 * E4. LookupTables
 * E5. NearestNeightbourSearch
 * E6. HashGrids
+
+## CodeUp (III). Patrones de diseño
+
+El objetivo de este taller es entender los fundamentos de los patrones de diseño para aprender a programar código que sea fácil de extender, comprender, reutilizar y mantener. 
+
+* E7. Command
+
