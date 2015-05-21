@@ -23,3 +23,5 @@ El objetivo de este taller es entender los fundamentos de los patrones de diseñ
 
 * E7. Command
 * E8. Visitor
+* E9. SimpleDecorator
+* E10. SimpleDecoratorFactory
