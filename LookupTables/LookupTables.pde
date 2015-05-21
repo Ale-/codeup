@@ -31,7 +31,7 @@ float[][] particles;
 float[] angles; 
 int[] angles_indices;
 
-TrigLookupTable t;  
+TrigLut t;  
 int angles_number = 720;
  
 void setup()
@@ -49,7 +49,7 @@ void setup()
         angles_indices[i] = (int) random(angles_number);
         angles[i] = angles_indices[i] * TWO_PI / angles_number;
     }
-    t = new TrigLookupTable(angles_number);
+    t = new TrigLut(angles_number);
    
 }
 

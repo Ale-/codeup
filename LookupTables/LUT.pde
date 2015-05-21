@@ -5,11 +5,11 @@
  */
 
 
-class TrigLookupTable
+class TrigLut
 {
     float[] s, c;  
    
-    TrigLookupTable (int steps_number)
+    TrigLut (int steps_number)
     {
         s = new float[steps_number];
         c = new float[steps_number];
@@ -21,5 +21,20 @@ class TrigLookupTable
             c[i] = cos(current_angle);
             current_angle += step;      
         }
+    }
+ 
+    TrigLut ()
+    {
+        TrigLut(1040);
+    }
+ 
+    float sin(float angle)
+    {
+
+    }
+ 
+    float cos(float angle)
+    {
+
     }   
 }
