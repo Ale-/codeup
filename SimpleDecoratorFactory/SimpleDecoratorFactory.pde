@@ -28,7 +28,7 @@ void setup()
 {
     size(900, 900);
     background(0);
-    stroke(#0000ff, 125);
+    stroke(0, 125);
     factory = new ParticleFactory();
     particles = new Particle[n];
     for(int i = 0; i < n; i++) 

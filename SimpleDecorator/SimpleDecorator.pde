@@ -15,9 +15,8 @@ Boston, MA 02111-1307 USA
 
 /**
 * Simple Decorator design pattern. CodeUp(III)
-* This example uses a much simpler approach of a Decorator pattern,
-* using simple inheritance instead of a pure abstract approach
-*
+* This example shows a simple approach to a Decorator pattern,
+* using simple inheritance instead of the pure abstract approach
 */
 
 int n = 200;
@@ -27,7 +26,7 @@ void setup()
 {
     size(900, 900);
     background(-1);
-    stroke(#0090ff, 125);
+    stroke(0, 125);
     particles = new Particle[n];
     for(int i = 0; i < n; i++) 
         particles[i] = random(1) < .33 ? new Particle() : random(1)<.66 ? new ParticleB() : new ParticleC();

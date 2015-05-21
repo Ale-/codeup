@@ -18,8 +18,8 @@ Boston, MA 02111-1307 USA
 * 
 */
 
-// 'commands' is an array of abstract objects that extend the class Command, that's it methods
-Command[] commands = { new Add(), new Multiplicate() };
+// 'operations' is an array of abstract objects that extend the class ArithmeticOperation, that's it methods
+ArithmeticOperation[] operations = { new Add(), new Multiplicate() };
 int[] cols = { 0x99000000, 0x99ff0000 };
 
 void setup()
@@ -31,46 +31,22 @@ void setup()
 
 void draw()
 {
+    //Create 10 random numbers, to be used as operands of the arithmetic operation
     float[] operands = new float[ int(random(10)) ];
     for(int i = 0; i < operands.length; i++) 
         operands[i] = random(1, 10);
+        
+    //Choose a random arithmetic operation
+    int operation_kind = (int) random(operations.length);
+    
+    //And write the results   
+    // (Here we pass a method to other. That's called 'callback'
+    //  The way of doing 'callbacks' in java is through a command approach,
+    //  encapsulating methods in objects)
     textSize(random(24));
-    // Le vamos pasar un método a otro --> 'calculate' a 'text'
-    // Esto se llama 'callback' y es habitual en programación funcional
-    // Esta es la manera de replicar dicho funcionamiento en POO
-    int index = (int) random(commands.length);
-    fill(cols[index]);
-    text(commands[index].calculate(operands), random(width), random(height) );  
+    fill(cols[operation_kind]);
+    text(operations[operation_kind].calculate(operands), random(width), random(height) );  
 }
 
 
-//Aquí se implementa el patrón comando
-// En este caso el sentido es obvio, podemos definir infinitas operaciones matemáticas sobre un conjunto de valores flotantes
-// De manera que hacer una versión de este programa con distintas operaciones sólo obliga a escribir las nuevas operaciones, sin
-// tocar el resto
-
-abstract class Command
-{  
-    abstract float calculate(float... v);  
-}
-
-class Add extends Command
-{   
-    float calculate(float... v)
-    {
-        float result = 0.;
-        for(int i = 0; i < v.length; i++) result += v[i];
-        return result;  
-    }  
-}
-
-class Multiplicate extends Command
-{   
-    float calculate(float... v)
-    {
-        float result = 1.;
-        for(int i = 0; i < v.length; i++) result *= v[i];
-        return result;  
-    }  
-}
 

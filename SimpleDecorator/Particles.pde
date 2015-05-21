@@ -1,6 +1,6 @@
 /**
  *  Main Particle class
- * 
+ *  Ä random walker in a toroidal space, basically.
  */
 
 class Particle
@@ -33,7 +33,7 @@ class Particle
 
 /**
  *  ParticleB class
- *  Decorates Particle 
+ *  Decorates Particle with a line that starts in the center of the former ellipse
  */
 
 class ParticleB extends Particle
@@ -49,7 +49,11 @@ class ParticleB extends Particle
   
     void display()
     {
-        super.display();
+        //This is the most important part of a decorator approach
+        //Objects call recursively the method they decorate
+        super.display(); 
+       
+        //Decoration here 
         l = new PVector(pos.x + random(-50, 50), pos.y + random(-50, 50)); 
         line(pos.x, pos.y, l.x, l.y);  
     }
@@ -57,7 +61,7 @@ class ParticleB extends Particle
 
 /**
  *  ParticleC class
- *  Decorates ParticleB 
+ *  Decorates ParticleB with another ellipse in the end of the line
  */
 
 class ParticleC extends ParticleB
@@ -70,6 +74,7 @@ class ParticleC extends ParticleB
     void display()
     {
         super.display();
+        
         ellipse(l.x, l.y, size, size);  
     }
 }
