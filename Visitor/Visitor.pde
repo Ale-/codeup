@@ -18,8 +18,8 @@ Boston, MA 02111-1307 USA
 * 
 */
 
-int n, m;
-float chance = .1;
+int n = 500, m = 50;
+float chance = .75;
 Particle[] particles;
 Force[] forces;
 
@@ -29,9 +29,20 @@ void setup()
     fill(-1, 50);
     background(-1);
     stroke(0, 50);
-    
-    //Instantiate particles
-    n = 1000;
+    reset();
+}
+
+void draw()
+{
+    for(int i = 0; i < n; i++) {
+      int random_force = int(random(m));
+      particles[i].move( forces[random_force] );
+    }
+}
+
+void reset()
+{
+  //Instantiate particles
     particles = new Particle[n];
     for(int i = 0; i < n; i++)
         particles[i] = new Particle(random(width), random(height));
@@ -40,15 +51,7 @@ void setup()
     m = int(random(50));  
     forces = new Force[m];
     for(int i = 0; i < m; i++)    
-        forces[i] = random(1) < chance ? new NoisyForce(random(.005, .05), 2) : new TrigForce(random(.005, .05), 2); 
-}
-
-void draw()
-{
-    for(int i = 0; i < n; i++) {
-        int random_force = int(random(m));
-        particles[i].move( forces[random_force] );
-    }
+        forces[i] = random(1) < chance ? new NoisyForce(random(.0001, 2), 2) : new TrigForce(random(.001, .5), 2); 
 }
 
 void mouseClicked()

@@ -29,7 +29,7 @@ class Particle
     void checkBounds()
     {
         if(position.x <= 0) position.x += width;  else if (position.x >= width)  position.x -= width;
-        if(position.y <= 0) position.y += height; else if (position.x >= height) position.x -= height;  
+        if(position.y <= 0) position.y += height; else if (position.y >= height) position.y -= height;  
     } 
     
 }

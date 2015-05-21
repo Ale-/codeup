@@ -3,7 +3,7 @@
  *  That's it, here force is the Visitor itself
  */
 
-interface class Force
+interface Force
 {
     abstract void move(Particle p);   
 }
@@ -29,8 +29,8 @@ class NoisyForce implements Force
   
     void move(Particle p)
     {
-        p.position.x += (noise(p.position.x * smoothness, p.position.y * smoothness, 0)-.5) * mag;
-        p.position.y += (noise(p.position.x * smoothness, p.position.y * smoothness, 1)-.5) * mag;     
+        p.position.x += (noise(p.position.x * smoothness, p.position.y * smoothness, 5)-.5) * mag;
+        p.position.y += (noise(p.position.x * smoothness, p.position.y * smoothness, 5)-.5) * mag;     
     }  
 }
 
@@ -52,8 +52,8 @@ class TrigForce implements Force
   
     void move(Particle p)
     {
-        p.position.x += (sin(p.position.y * smoothness)-.5) * mag;
-        p.position.y += (cos(p.position.x * smoothness)-.5) * mag;     
+        p.position.x += sin( map(p.position.y, 0, height, 0, TWO_PI)) * mag;
+        p.position.y += cos( map(p.position.x, 0, width, 0, TWO_PI)) * mag;     
         
     }  
 }
