@@ -1,5 +1,5 @@
 # CodeUp
-_CodeUp_ es una serie de talleres de Processing nivel medio-avanzado cuyo objetivo es mejorar el nivel general de programación. Los talleres se articularán en torno a una serie de presentaciones, disponibles en [414c45.net] (workshops.414c45.net) y una serie de ejercicios cuyo repositorio principal será este que tienes delante.
+_CodeUp_ es una serie de talleres de Processing nivel medio-avanzado cuyo objetivo es mejorar el nivel general de programación. Los talleres se articularán en torno a una serie de presentaciones, disponibles [aquí] (workshops.wwb.cc) y una serie de ejercicios cuyo repositorio principal será este que tienes delante.
 
 ## CodeUp (I). Estructuras de Datos
 
